@@ -12,6 +12,7 @@ class UserViewSet (viewsets.ModelViewSet):
         @action(detail=False, methods=['get'])
         def search_by_username(self, request): #/api/users/search_by_username/?username=nombre_usuario
                 username = request.query_params.get('username', None)
+                print(f"Searching user with username: {username}")
                 if username is not None:
                         users = User.objects.filter(username=username)
                         serializer = self.get_serializer(users, many=True)
