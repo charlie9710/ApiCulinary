@@ -14,7 +14,7 @@ class UserViewSet (viewsets.ModelViewSet):
                 username = request.query_params.get('username', None)
                 print(f"Searching user with username: {username}")
                 if username is not None:
-                        users = User.objects.filter(username=username)
+                        users = User.objects.filter(user=username)
                         serializer = self.get_serializer(users, many=True)
                         return Response(serializer.data)
                 else:
