@@ -58,10 +58,11 @@ class FavoritoViewSet (viewsets.ModelViewSet):
                         serializer.save()
                         return Response(serializer.data, status=status.HTTP_201_CREATED)
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        @action(detail=True, methods=['delete'], url_path='delete/(?P<favorito_id>[^/.]+)')
-        def delete_favorito(self, request, favorito_id=None): #DELETE /api/favoritos/{favorito_id}/delete/
+        
+       @action(detail=True, methods=['delete'], url_path='delete')
+        def delete_favorito(self, request, pk=None):
                 try:
-                        favorito = Favorito.objects.get(pk=favorito_id)
+                        favorito = self.get_object()
                         favorito.delete()
                         return Response(status=status.HTTP_204_NO_CONTENT)
                 except Favorito.DoesNotExist:
