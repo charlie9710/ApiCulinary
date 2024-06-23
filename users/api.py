@@ -59,7 +59,7 @@ class FavoritoViewSet (viewsets.ModelViewSet):
                         return Response(serializer.data, status=status.HTTP_201_CREATED)
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
-       @action(detail=True, methods=['delete'], url_path='delete')
+        @action(detail=True, methods=['delete'], url_path='delete')
         def delete_favorito(self, request, pk=None):
                 try:
                         favorito = self.get_object()
