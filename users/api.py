@@ -59,11 +59,10 @@ class FavoritoViewSet (viewsets.ModelViewSet):
                         return Response(serializer.data, status=status.HTTP_201_CREATED)
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
-        @action(detail=True, methods=['delete'], url_path='delete')
-        def delete_favorito(self, request, pk=None):
+        def destroy(self, request, *args, **kwargs):
                 try:
-                        favorito = self.get_object()
-                        favorito.delete()
+                        instance = self.get_object()
+                        self.perform_destroy(instance)
                         return Response(status=status.HTTP_204_NO_CONTENT)
-                except Favorito.DoesNotExist:
-                        return Response(status=status.HTTP_404_NOT_FOUND)
+                except Exception as e:
+                        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
